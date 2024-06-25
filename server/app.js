@@ -3,11 +3,12 @@ const app = express();
 const cors = require('cors')
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-
 const errorMiddleware = require('./middleware/error')
-const path = require('path')
 
-app.use(cors());
+app.use(cors({
+    origin: "https://codefusion-silk.vercel.app"
+}));
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
