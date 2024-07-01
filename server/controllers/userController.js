@@ -94,11 +94,16 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
 //LOGOUT USER
 exports.logout = catchAsyncErrors(async (req, res, next) => {
 
-    const user = null;
-    const token = '';
-    res.status(200).cookie('token',token).json({
+    res.cookie("token", null, {
+        expires: new Date(Date.now()),
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+        sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax' // Ensures the cookie is sent in cross-site requests
+    });
+
+
+    res.status(200).json({
         success: true,
-        user,
         message: "Logged Out"
     })
 });
@@ -106,7 +111,7 @@ exports.logout = catchAsyncErrors(async (req, res, next) => {
 //GET USER DETAILS
 exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
 
-    
+
     const user = await User.findById(req.user._id);
 
     res.status(200).json({

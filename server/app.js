@@ -6,7 +6,8 @@ const bodyParser = require('body-parser');
 const errorMiddleware = require('./middleware/error')
 
 app.use(cors({
-    origin: "https://codefusion-silk.vercel.app"
+    origin: "https://codefusion-silk.vercel.app",
+    credentials: true
 }));
 
 app.use(express.json());
